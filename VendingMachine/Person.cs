@@ -11,9 +11,6 @@ namespace VendingMachine
             if (money > 0)
             {
                 Money += money;
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Your transaction has been completed");
-                Console.ResetColor();
             }
             
         }

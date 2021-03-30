@@ -9,16 +9,12 @@ namespace VendingMachine
         public void Run()
         {
             var inventory = new Inventory();
-            var bankAccount = new BankAccount();
             var person = new Person();
-
-            Console.WriteLine("WELCOME");
-            Console.WriteLine("Main Menu");
-            Console.WriteLine("1] Display Vending Machine Items");
-            Console.WriteLine("2] Purchase");
-            Console.WriteLine("3] Virtual bank");
-            Console.WriteLine("4] Check balance on your bank card");
-            Console.WriteLine("Q] Quit");
+            
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("WELCOME TO AMANDA'S VENDING MACHINE");
+            Console.ResetColor();
+            
 
             var menuOptions = new List<String>
             {   
@@ -35,17 +31,17 @@ namespace VendingMachine
 
                 if (option == "1")
                 {
-                    Console.Clear();
                     inventory.DisplayAllItems();
-                    
                     var input = GetSelectedItem(inventory.VendingMachineItems);
                     if (input != null) DisplaySelectedItem();
-                    
                     continue;
                 }
                 if (option == "2")
                 {
-                    
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Purchase");
+                    Console.WriteLine("´´´´´´´´");
+                    Console.ResetColor();
                     var total = DisplaySelectedItem();
                     if (total == 0) continue;
                    
@@ -74,59 +70,21 @@ namespace VendingMachine
                 }
                 if (option == "3")
                 {
-                    
-                    var balance = bankAccount.Balance();
-                    
-                    while (true)
-                    {
-                        if (balance == 0)
-                        {
-                            Console.WriteLine($"You have {balance} SEK on your bank account and cannot transfer any money");
-                            break;
-                        }
-                        Console.WriteLine($"You have {balance} SEK on your bank account");
-                        Console.WriteLine("Do you want to transfer money to your card? enter YES or NO:");
-                        var input = Console.ReadLine();
-                        input = input.ToUpper();
-                        
-                        if (input == "YES")
-                        {
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("OK");
-                            Console.ResetColor();
-                            Console.WriteLine("Enter amount you would like to transfer:");
-                            var amount = Console.ReadLine();
-                            
-                            if (int.TryParse(amount, out int number))
-                            {
-                                var moneyTransferToCard = bankAccount.Withdraw(number);
-                                person.addMoneyOnCard(moneyTransferToCard);
-                                var moneyOnCard = person.MoneyOnCard();
-                                Console.WriteLine($"You have {moneyOnCard} SEK on your card");
-                                break;
-                            }
-                            continue;
-                            
-                        }
-                        if (input == "NO")
-                        {
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("OK");
-                            Console.ResetColor();
-                            break;
-                        }
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"{input} is not a valid option, enter YES or NO");
-                        Console.ResetColor();
-                        
-                    }
+                    var bankAccount = new BankAccount();
+                    bankAccount.Deposit(1000);
+                    bankAccount.Start(person);
                     continue;
                     
                 }
                 if (option == "4")
                 {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Balance on your card");
+                    Console.WriteLine("´´´´´´´´´´´´´´´´´´´");
+                    Console.ResetColor();
                     var moneyOnCard = person.MoneyOnCard();
-                    Console.WriteLine($"You have {moneyOnCard} SEK on your card");
+                    Console.WriteLine($"You have {moneyOnCard} SEK on your card.");
+                    Console.WriteLine();
                     continue;
                 }
                 if (option == "Q")
@@ -148,11 +106,19 @@ namespace VendingMachine
         {
             while (true)
             {
-                Console.Write("What option do you want to select? ");
-
+                Console.WriteLine("-----------------------------------");
+                Console.WriteLine("Main Menu");
+                Console.WriteLine("1] Display Vending Machine items");
+                Console.WriteLine("2] Purchase");
+                Console.WriteLine("3] Virtual bank");
+                Console.WriteLine("4] Check balance on your bank card");
+                Console.WriteLine("Q] Quit");
+                Console.WriteLine();
+                Console.Write("Select a menu option, enter [1], [2], [3], [4] or [Q]: ");
+                
                 var input = Console.ReadLine();
                 input = input.ToUpper();
-
+                
                 if (menuOptions.Contains(input))
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -174,7 +140,7 @@ namespace VendingMachine
         { 
             while (true)
             {
-                Console.Write("What item do you want to select? [Enter B to go back]: ");
+                Console.Write("Enter the ID on the item you want to select or [B] if you want to go back: ");
 
                 var input = Console.ReadLine();
 
@@ -200,18 +166,22 @@ namespace VendingMachine
                 Console.WriteLine("Not a valid option, try again.");
                 Console.ResetColor();
             }
+            
         }
 
        public int DisplaySelectedItem()
        {
            var total = 0;
            var countedItems = SelectedItems.Count; 
-            
+           Console.WriteLine();
+           
             if (SelectedItems.Count == 0)
             {
+                Console.Clear();
                 Console.WriteLine("No selected items");
                 Console.WriteLine(".................");
                 Console.WriteLine("You have nothing to pay. Enter [1] to display items to buy.");
+                Console.WriteLine();
                 return 0;
             }
 
