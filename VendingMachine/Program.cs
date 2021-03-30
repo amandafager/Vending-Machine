@@ -6,7 +6,8 @@ namespace VendingMachine
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var vendingMachine = new VendingMachine();
+            vendingMachine.Run();
         }
     }
 }
