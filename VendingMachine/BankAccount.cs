@@ -46,8 +46,7 @@ namespace VendingMachine
                 Console.ResetColor();
             }
         }
-
-
+        
         private int GetAmountToWithdraw(int money)
         {
             while (true)
@@ -55,20 +54,20 @@ namespace VendingMachine
                 Console.Write("Enter amount you would like to transfer: ");
                 var amount = Console.ReadLine();
 
-                if (int.TryParse(amount, out int number))
+                if (int.TryParse(amount, out var number)) 
                 {
+                    
                     if (number > balance)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine($"You have only {money} SEK your account, please enter another amount.");
                         Console.ResetColor();
                         continue;
-                    } 
-                   
+                    }
                     if (number <= 0)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("You cannot do that. Try again..");
+                        Console.WriteLine("It must be a positive number. Try again..");
                         Console.ResetColor();
                         continue;
                     }
@@ -79,6 +78,7 @@ namespace VendingMachine
                 Console.ResetColor();
             }
         }
+        
         private int Withdraw(int amount)
         {
             if (balance >= amount)
@@ -90,22 +90,24 @@ namespace VendingMachine
             Console.WriteLine($"You have {balance} SEK on your bank account and cannot transfer selected amount.");
             Console.ResetColor();
             return 0;
-            
         }
         
         public void Deposit(int amount)
         {
             balance += amount;
         }
+        
         private static void TransferMoney(int amount, Person person)
         {
             person.addMoneyOnCard(amount);
             Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine();
             Console.WriteLine("Your transaction has been completed.");
+            Console.ResetColor();
             var money = person.MoneyOnCard();
             Console.WriteLine($"You have now {money} SEK on your card.");
             Console.WriteLine();
-            Console.ResetColor();
+            
         }
 
         public int Balance()

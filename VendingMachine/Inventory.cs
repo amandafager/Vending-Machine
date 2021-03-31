@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace VendingMachine
 {
@@ -10,7 +9,6 @@ namespace VendingMachine
 
         public Inventory()
         {
-            
             VendingMachineItems.Add(new Item("1", "Banana", 40, 10));
             VendingMachineItems.Add(new Item("2", "Apple", 20, 19));
             VendingMachineItems.Add(new Item("3", "Candy", 40, 11));
@@ -43,7 +41,5 @@ namespace VendingMachine
             }
             VendingMachineItems.Remove(a);
         }
-        
-        
     }
 }

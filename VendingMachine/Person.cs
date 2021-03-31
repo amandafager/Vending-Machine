@@ -12,7 +12,6 @@ namespace VendingMachine
             {
                 Money += money;
             }
-            
         }
         
         public int removeMoneyOnCard(int money)
