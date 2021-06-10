@@ -1,5 +1,6 @@
 # Vending-Machine
-## C# school project
+Individual console application assignment in C#.
+
 ## List of requirements:
 - Write a virtual vending machine where the user can buy different items.
 - To buy items they need enough money.
